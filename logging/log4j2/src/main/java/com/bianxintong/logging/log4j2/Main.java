@@ -18,9 +18,10 @@ public class Main {
 		Configuration config = ctx.getConfiguration();
 		LoggerConfig rootLoggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME); 
 		LoggerConfig loggerConfig = config.getLoggerConfig("com.bianxintong"); 
-		loggerConfig.setLevel(Level.TRACE);
+//		loggerConfig.setLevel(Level.TRACE);
 		ctx.updateLoggers();  // This causes all Loggers to refetch information from their LoggerConfig.
-		new ComJournalDevApp();
+//		new ComJournalDevApp();
+		new UsingSlf4j();
 	}
 
 }

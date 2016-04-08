@@ -8,5 +8,6 @@
 
 	<modules>
 		<module>logging/log4j2</module>
+		<module>hive/hive-streaming</module>
 	</modules>
 </project>
