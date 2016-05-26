@@ -1,2 +1,1 @@
-create table testing.alerts ( id int , msg string ) partitioned by (continent string, country string) clustered by (id) into 5 buckets   stored as orc tblproperties("transactional"="true"); 
-// currently ORC is required for streaming
+create table xintong.streaming ( id int , msg string ) partitioned by (continent string, country string) clustered by (id) into 1 buckets  stored as orc; 

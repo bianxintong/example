@@ -1,4 +1,4 @@
-package hive.streaming;
+package com.xintong.hive.streaming;
 
 import java.util.ArrayList;
 
@@ -10,8 +10,8 @@ import org.apache.hive.hcatalog.streaming.TransactionBatch;
 public class App {
 	public static void main(String[] args) throws Exception {
 		// ------- MAIN THREAD ------- //
-		String dbName = "testing";
-		String tblName = "alerts";
+		String dbName = "xintong";
+		String tblName = "streaming";
 		String[] fieldNames = new String[] { "id", "msg" };
 		ArrayList<String> partitionVals = new ArrayList<String>(2);
 		partitionVals.add("Asia");
@@ -19,9 +19,10 @@ public class App {
 		String serdeClass = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe";
 
 		HiveEndPoint hiveEP = new HiveEndPoint("thrift://hadoop145107:9083", dbName, tblName, partitionVals);
-
+		System.out.println(hiveEP);
 		// ------- Thread 1 -------//
 		StreamingConnection connection = hiveEP.newConnection(true);
+		System.out.println("connected");
 		DelimitedInputWriter writer = new DelimitedInputWriter(fieldNames, ",", hiveEP);
 		TransactionBatch txnBatch = connection.fetchTransactionBatch(10, writer);
 
@@ -42,28 +43,5 @@ public class App {
 			txnBatch.close();
 			connection.close();
 		}
-
-//		txnBatch = connection.fetchTransactionBatch(10, writer); // Unable to
-//																	// acquire
-//																	// transaction
-//																	// batch on
-//																	// end point
-//
-//		///// Batch 2 - First TXN
-//		txnBatch.beginNextTransaction();
-//		txnBatch.write("6,David Schorow".getBytes());
-//		txnBatch.write("7,Sushant Sowmyan".getBytes());
-//		txnBatch.commit();
-//
-//		if (txnBatch.remainingTransactions() > 0) {
-//			///// Batch 2 - Second TXN
-//			txnBatch.beginNextTransaction();
-//			txnBatch.write("8,Ashutosh Chauhan".getBytes());
-//			txnBatch.write("9,Thejas Nair".getBytes());
-//			txnBatch.commit();
-//
-//			txnBatch.close();
-//		}
-//		connection.close();
 	}
 }
