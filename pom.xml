@@ -11,5 +11,7 @@
 		<module>hive/hive-streaming</module>
 		<module>kakfa</module>
     <module>serialization</module>
+    <module>Hdfs</module>
+    <module>reach-online</module>
   </modules>
 </project>

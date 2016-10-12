@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="info">
 	<Appenders>
 		<Console name="Console">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
+		<Syslog name="syslog" format="RFC5424" host="localhost" port="514"
+			protocol="UDP" appName="[${sys:storm.id}:${sys:worker.port}]" mdcId="mdc"
+			includeMDC="true" facility="LOCAL5" enterpriseNumber="18060" newLine="true"
+			exceptionPattern="%rEx{full}" messageId="[${sys:user.name}:${sys:logging.sensitivity}]"
+			id="storm" />
 	</Appenders>
 	<Loggers>
-		<Root level="trace">
+		<Root level="off">
 			<AppenderRef ref="Console" />
 		</Root>
-		<logger name="com.bianxintong" level="debug">
+		<logger name="com.bianxintong" level="off">
 			<AppenderRef ref="Console" />
 		</logger>
+		<logger name="com.bianxintong.logging.log4j2.UsingSlf4j2"
+			level="info">
+			<AppenderRef ref="Console" />
+		</logger>
+		<Logger name="STDERR" level="off">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="java.lang.Throwable" level="off">
+			<AppenderRef ref="Console" />
+		</Logger>
 	</Loggers>
 </Configuration>
